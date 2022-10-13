@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Set Timeout</title>
+    <script>
+      // Menggunakan cara sincrounous
+      // function callback() {
+      //   console.log("Hello World");
+      // }
+
+      // function buttonClick() {
+      //   callback();
+      //   console.log("Success Click Button");
+      // }
+
+      // menggunakan cara asyncrounus
+      //cara 1
+      function callback() {
+        console.log("Hello World");
+      }
+
+      // function buttonClick() {
+      //   //async
+      //   setTimeout(function () {
+      //     callback();
+      //   }, 5000);
+      //   callback();
+      //   console.log("Success Click Button");
+      // }
+
+      //cara 2
+      // function buttonClick() {
+      //   // async
+      //   setTimeout(callback, 5000);
+      //   console.log("Success Click Button");
+      // }
+
+      function buttonClick() {
+        setInterval(function () {
+          callback();
+        }, 2000);
+      }
+      console.log("Success Click Button");
+    </script>
+  </head>
+  <body>
+    <button onclick="buttonClick()">Click Me</button>
+  </body>
+</html>

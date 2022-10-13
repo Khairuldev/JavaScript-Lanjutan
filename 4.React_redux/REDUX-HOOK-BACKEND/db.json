@@ -1,0 +1,24 @@
+{
+  "kontak": [
+    {
+      "id": 1,
+      "nama": "aan aja ya",
+      "nohp": "62 81397367877"
+    },
+    {
+      "nama": "rozi",
+      "nohp": "8123345666",
+      "id": 2
+    },
+    {
+      "nama": "rido",
+      "nohp": "74878374837",
+      "id": 3
+    },
+    {
+      "id": 4,
+      "nama": "rido roma irama",
+      "nohp": "74878374838"
+    }
+  ]
+}

@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Dynamic Callback</title>
+    <script>
+      function getProductsUrl(keyword) {
+        return `https://www.blibli.com/backend/search/products?searchTerm=${keyword}`;
+      }
+
+      function getProducts(keyword, callbackSusccses, callbackError) {
+        // Code AJAX Here!
+        const ajax = new XMLHttpRequest();
+        ajax.onload = function () {
+          if (ajax.status === 200) {
+            const data = JSON.parse(ajax.responseText);
+            callbackSusccses(data);
+          } else {
+            callbackError();
+          }
+        };
+
+        const url = getProductsUrl(keyword);
+        ajax.open("GET", url);
+        ajax.send();
+
+        //tidak bisa dilakukan secara sincronous karena ketika di parsing terjadi eror karena data ajax.responseText belum ada, kenapa tidak ada karena ajax itu dilakukan secara asynchronous, caranya harus dilakukan calback terlebih dahulu
+
+        // const response = JSON.parse(ajax.responseText);
+        // console.log(response);
+      }
+
+      function getProductsEror() {
+        alert("maaf, Halaman terjadi Eror");
+        console.log("get products eror");
+      }
+
+      function clearProducts() {
+        const productUl = document.getElementById("products");
+        productUl.textContent = "";
+      }
+
+      function displayProducts(data) {
+        data.data.products.forEach((product) => displayProduct(product));
+      }
+
+      function displayProduct(product) {
+        const productLi = document.createElement("li");
+        productLi.textContent = product.name;
+
+        const productUl = document.getElementById("products");
+        productUl.appendChild(productLi);
+      }
+
+      function clearTableProducts() {
+        const productUl = document.getElementById("table-products");
+        productUl.textContent = "";
+      }
+
+      function displayTableProducts(data) {
+        const table = document.createElement("table");
+        table.setAttribute("border", 1);
+
+        let index = 0;
+        data.data.products.forEach((product) => {
+          table.insertRow(index).insertCell(0).innerText = product.name;
+          index++;
+        });
+
+        const tableProduct = document.getElementById("table-products");
+        tableProduct.appendChild(table);
+      }
+
+      function buttonClick() {
+        getProducts(
+          document.getElementById("keyword").value,
+          function (data) {
+            console.log(data);
+          },
+          function () {
+            console.log("Eror");
+          }
+        );
+
+        //Menampilkan Products by List
+        getProducts(
+          document.getElementById("keyword").value,
+          function (data) {
+            clearProducts();
+            displayProducts(data);
+          },
+          function () {
+            getProductsEror();
+          }
+        );
+
+        // menampilkan Products by Table
+        getProducts(
+          document.getElementById("keyword").value,
+          function (data) {
+            clearTableProducts();
+            displayTableProducts(data);
+          },
+          function () {
+            getProductsEror();
+          }
+        );
+
+        console.log("succsess click button");
+      }
+    </script>
+  </head>
+  <body>
+    <h1>Dynamic Callback</h1>
+    <hr />
+    <input type="text" id="keyword" />
+    <button onclick="buttonClick()">Search Products</button>
+    <ul id="products"></ul>
+    <div id="table-products"></div>
+  </body>
+</html>

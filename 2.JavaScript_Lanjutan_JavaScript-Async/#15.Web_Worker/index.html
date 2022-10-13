@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Web Worker</title>
+    <script>
+      const worker = new Worker("script.js"); //-->  code cara membuat web worker
+
+      function showLog(total) {
+        for (let i = 0; i < total; i++) {
+          console.log(i);
+        }
+      }
+
+      function buttonClick() {
+        console.log("Start Log");
+        showLog(20000);
+        console.log("Finish Log");
+      }
+    </script>
+  </head>
+  <body>
+    <h1>Web Worker</h1>
+    <hr />
+    <button onclick="buttonClick()">Search Products</button>
+  </body>
+</html>
